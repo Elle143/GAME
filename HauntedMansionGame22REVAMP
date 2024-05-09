@@ -1,0 +1,398 @@
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.geometry.Pos;
+import javafx.stage.Stage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Random;
+
+public class HauntedMansionGame22 extends Application {
+
+   private Label descriptionLabel;
+
+   @Override
+   public void start(Stage primaryStage) throws FileNotFoundException {
+      primaryStage.setTitle("Lost in a Haunted Mansion");
+   
+      // Create layout
+      BorderPane root = new BorderPane();
+      root.setStyle("-fx-background-color: black;");
+      root.setPadding(new Insets(20));
+   
+      // Header
+      Label headerLabel = new Label("Lost in a Haunted Mansion");
+      headerLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
+      HBox headerBox = new HBox(headerLabel);
+      headerBox.setAlignment(Pos.CENTER);
+      root.setTop(headerBox);
+   
+      // Image Section
+      FileInputStream startStream = new FileInputStream("C:/salamin/e.JPG");
+      Image startImage = new Image(startStream);
+      ImageView startImageView = new ImageView(startImage);
+      startImageView.setFitWidth(300);
+      startImageView.setFitHeight(300);
+   
+      VBox imageBox = new VBox(20);
+      imageBox.setAlignment(Pos.CENTER);
+      imageBox.getChildren().addAll(startImageView);
+      root.setCenter(imageBox);
+   
+      // Button Section
+      Button startButton = new Button("Start Adventure");
+      startButton.setStyle("-fx-font-size: 18px;");
+      startButton.setOnAction(e -> startGame(primaryStage)); // Pass primaryStage as argument
+   
+      VBox buttonBox = new VBox(10);
+      buttonBox.setAlignment(Pos.CENTER);
+      buttonBox.getChildren().add(startButton);
+      root.setBottom(buttonBox);
+   
+      // Set up scene
+      Scene scene = new Scene(root, 800, 600);
+      primaryStage.setScene(scene);
+      primaryStage.setResizable(false);
+      primaryStage.show();
+   }
+
+   private void startGame(Stage primaryStage) {
+   
+      // Image Section
+      BorderPane adventureRoot = new BorderPane();
+      adventureRoot.setStyle("-fx-background-color: black;");
+      adventureRoot.setPadding(new Insets(20));
+   
+      FileInputStream horStream = null;
+      try {
+         horStream = new FileInputStream("C:/salamin/diwata.JPG");
+      } catch (FileNotFoundException e) {
+         e.printStackTrace();
+      }
+      Image ghostImage = new Image(horStream);
+      ImageView ghostImageView = new ImageView(ghostImage);
+      ghostImageView.setFitWidth(300);
+      ghostImageView.setFitHeight(300);
+   
+      VBox imageBox1 = new VBox(20);
+      imageBox1.setAlignment(Pos.CENTER);
+      imageBox1.getChildren().addAll(ghostImageView);
+      adventureRoot.setCenter(imageBox1);
+   
+      Label adventureLabel = new Label("The Ghost is lurking behind you. Where do you want to hide?");
+      adventureLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
+   
+      HBox adventureHeaderBox = new HBox(adventureLabel);
+      adventureHeaderBox.setAlignment(Pos.CENTER);
+      adventureRoot.setTop(adventureHeaderBox);
+   
+      // Hiding Places
+      Button hideInClosetButton = new Button("Closet");
+      hideInClosetButton.setOnAction(e -> closet(primaryStage));
+      Button hideUnderBedButton = new Button("Under the Bed");
+      hideUnderBedButton.setOnAction(e -> bed(primaryStage));
+      Button hideBehindCurtainButton = new Button("Behind the Curtain");
+      hideBehindCurtainButton.setOnAction(e -> curtain(primaryStage));
+      Button hideInWardrobeButton = new Button("In the Wardrobe");
+      hideInWardrobeButton.setOnAction(e -> ward(primaryStage));
+      Button hideInBasementButton = new Button("In the Basement");
+      hideInBasementButton.setOnAction(e -> base(primaryStage));
+     
+   
+      VBox hidingPlacesBox = new VBox(10);
+      hidingPlacesBox.setAlignment(Pos.CENTER);
+      hidingPlacesBox.getChildren().addAll(hideInClosetButton, hideUnderBedButton, hideBehindCurtainButton,
+             hideInWardrobeButton, hideInBasementButton);
+      adventureRoot.setBottom(hidingPlacesBox);
+   
+      Scene adventureScene = new Scene(adventureRoot, 800, 600);
+      primaryStage.setScene(adventureScene);
+      primaryStage.setResizable(false);
+      primaryStage.show();
+   }
+
+   private void closet(Stage primaryStage){
+      // Image Section
+      BorderPane adventureRoot = new BorderPane();
+      adventureRoot.setStyle("-fx-background-color: black;");
+      adventureRoot.setPadding(new Insets(20));
+   
+      Label adventureLabel = new Label("the ghost found you and you died.");
+      adventureLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
+      
+      
+      FileInputStream gameoverStream = null;
+      try {
+         gameoverStream = new FileInputStream("C:/salamin/d.JPG");
+      } catch (FileNotFoundException e) {
+         e.printStackTrace();
+      }
+      
+      Button restartButton = new Button("Restart");
+      restartButton.setOnAction(
+         e -> {
+            try {
+               start(primaryStage);
+            } catch (FileNotFoundException fileNotFoundException) {
+               fileNotFoundException.printStackTrace();
+            }
+         });
+      VBox restartBox = new VBox(10);
+      restartBox.setAlignment(Pos.CENTER);
+      restartButton.setStyle("-fx-font-size: 18px;");
+      restartBox.getChildren().add(restartButton);
+      adventureRoot.setBottom(restartBox);
+      
+   
+      
+      Image diedImage = new Image(gameoverStream);
+      ImageView diedImageView = new ImageView(diedImage);
+      diedImageView.setFitWidth(300);
+      diedImageView.setFitHeight(300);
+   
+      VBox imageBox2 = new VBox(20);
+      imageBox2.setAlignment(Pos.CENTER);
+      imageBox2.getChildren().addAll(diedImageView);
+      adventureRoot.setCenter(imageBox2);
+     
+      
+      HBox adventureHeaderBox = new HBox(adventureLabel);
+      adventureHeaderBox.setAlignment(Pos.CENTER);
+      adventureRoot.setTop(adventureHeaderBox);
+      
+      Scene adventureScene = new Scene(adventureRoot, 800, 600);
+      primaryStage.setScene(adventureScene);
+      primaryStage.setResizable(false);
+      primaryStage.show();
+   
+   
+   }
+   private void bed(Stage primaryStage){
+     // Image Section
+      BorderPane adventureRoot = new BorderPane();
+      adventureRoot.setStyle("-fx-background-color: black;");
+      adventureRoot.setPadding(new Insets(20));
+   
+      Label adventureLabel = new Label("Youve hidden under the bed.");
+      adventureLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
+      
+      FileInputStream underStream = null;
+      try {
+         underStream = new FileInputStream("C:/salamin/k.JPG");
+      } catch (FileNotFoundException e) {
+         e.printStackTrace();
+      }
+      
+      Button restartButton = new Button("Restart");
+      restartButton.setOnAction(
+         e -> {
+            try {
+               start(primaryStage);
+            } catch (FileNotFoundException fileNotFoundException) {
+               fileNotFoundException.printStackTrace();
+            }
+         });
+      VBox restartBox = new VBox(10);
+      restartBox.setAlignment(Pos.CENTER);
+      restartButton.setStyle("-fx-font-size: 18px;");
+      restartBox.getChildren().add(restartButton);
+      adventureRoot.setBottom(restartBox);
+   
+      
+      Image underImage = new Image(underStream);
+      ImageView underImageView = new ImageView(underImage);
+      underImageView .setFitWidth(300);
+      underImageView .setFitHeight(300);
+   
+      VBox imageBox3 = new VBox(20);
+      imageBox3.setAlignment(Pos.CENTER);
+      imageBox3.getChildren().addAll(underImageView);
+      adventureRoot.setCenter(imageBox3);
+   
+      
+      HBox adventureHeaderBox = new HBox(adventureLabel);
+      adventureHeaderBox.setAlignment(Pos.CENTER);
+      adventureRoot.setTop(adventureHeaderBox);
+      
+      Scene adventureScene = new Scene(adventureRoot, 800, 600);
+      primaryStage.setScene(adventureScene);
+      primaryStage.setResizable(false);
+      primaryStage.show();
+   
+      
+   
+   }
+   
+   private void curtain(Stage primaryStage){  
+    // Image Section
+      BorderPane adventureRoot = new BorderPane();
+      adventureRoot.setStyle("-fx-background-color: black;");
+      adventureRoot.setPadding(new Insets(20));
+   
+      Label adventureLabel = new Label("Youve hidden behind the curtain.");
+      adventureLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
+      
+      FileInputStream curtainStream = null;
+      try {
+         curtainStream = new FileInputStream("C:/salamin/s.JPG");
+      } catch (FileNotFoundException e) {
+         e.printStackTrace();
+      }
+      
+      Button restartButton = new Button("Restart");
+      restartButton.setOnAction(
+         e -> {
+            try {
+               start(primaryStage);
+            } catch (FileNotFoundException fileNotFoundException) {
+               fileNotFoundException.printStackTrace();
+            }
+         });
+      VBox restartBox = new VBox(10);
+      restartBox.setAlignment(Pos.CENTER);
+      restartButton.setStyle("-fx-font-size: 18px;");
+      restartBox.getChildren().add(restartButton);
+      adventureRoot.setBottom(restartBox);
+   
+      
+      Image curtainImage = new Image(curtainStream);
+      ImageView curtainImageView = new ImageView(curtainImage);
+      curtainImageView.setFitWidth(300);
+      curtainImageView.setFitHeight(300);
+   
+      VBox imageBox4 = new VBox(20);
+      imageBox4.setAlignment(Pos.CENTER);
+      imageBox4.getChildren().addAll(curtainImageView);
+      adventureRoot.setCenter(imageBox4);
+      
+      
+      HBox adventureHeaderBox = new HBox(adventureLabel);
+      adventureHeaderBox.setAlignment(Pos.CENTER);
+      adventureRoot.setTop(adventureHeaderBox);
+      
+      Scene adventureScene = new Scene(adventureRoot, 800, 600);
+      primaryStage.setScene(adventureScene);
+      primaryStage.setResizable(false);
+      primaryStage.show();
+   
+   
+    
+   }
+   private void ward(Stage primaryStage){
+      // Image Section
+      BorderPane adventureRoot = new BorderPane();
+      adventureRoot.setStyle("-fx-background-color: black;");
+      adventureRoot.setPadding(new Insets(20));
+   
+      Label adventureLabel = new Label("the ghost found you and you died.");
+      adventureLabel.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
+      
+      
+      FileInputStream wardStream = null;
+      try {
+         wardStream = new FileInputStream("C:/salamin/d.JPG");
+      } catch (FileNotFoundException e) {
+         e.printStackTrace();
+      }
+      
+      Button restartButton = new Button("Restart");
+      restartButton.setOnAction(
+         e -> {
+            try {
+               start(primaryStage);
+            } catch (FileNotFoundException fileNotFoundException) {
+               fileNotFoundException.printStackTrace();
+            }
+         });
+      VBox restartBox = new VBox(10);
+      restartBox.setAlignment(Pos.CENTER);
+      restartButton.setStyle("-fx-font-size: 18px;");
+      restartBox.getChildren().add(restartButton);
+      adventureRoot.setBottom(restartBox);
+   
+      
+      
+      Image diedImage = new Image(wardStream);
+      ImageView diedImageView = new ImageView(diedImage);
+      diedImageView.setFitWidth(300);
+      diedImageView.setFitHeight(300);
+   
+      VBox imageBox5 = new VBox(20);
+      imageBox5.setAlignment(Pos.CENTER);
+      imageBox5.getChildren().addAll(diedImageView);
+      adventureRoot.setCenter(imageBox5);
+     
+      
+      HBox adventureHeaderBox = new HBox(adventureLabel);
+      adventureHeaderBox.setAlignment(Pos.CENTER);
+      adventureRoot.setTop(adventureHeaderBox);
+      
+      Scene adventureScene = new Scene(adventureRoot, 800, 600);
+      primaryStage.setScene(adventureScene);
+      primaryStage.setResizable(false);
+      primaryStage.show();
+   
+   }
+   private void base(Stage primaryStage){
+      // Image Section
+      BorderPane adventureRoot = new BorderPane();
+      adventureRoot.setStyle("-fx-background-color: black;");
+      adventureRoot.setPadding(new Insets(20));
+   
+      Label adventureLabel = new Label("CONGRATS!!! YOUVE DISCOVERED THE HIDDEN DOOR BEHIND THE BASEMENT TO ESCAPE.");
+      adventureLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: white;");
+   
+      
+      FileInputStream baseStream = null;
+      try {
+         baseStream = new FileInputStream("C:/salamin/p.PNG");
+      } catch (FileNotFoundException e) {
+         e.printStackTrace();
+      }
+      
+      Button quitButton = new Button("Quit");
+      quitButton.setOnAction(e -> primaryStage.close());
+      
+      VBox quitBox  = new VBox(10);
+      quitBox.setAlignment(Pos.CENTER);
+      quitBox.setStyle("-fx-font-size: 18px;");
+      quitBox.getChildren().add(quitButton);
+      adventureRoot.setBottom(quitBox);
+      
+       
+      
+      Image baseImage = new Image(baseStream);
+      ImageView baseImageView = new ImageView(baseImage);
+      baseImageView.setFitWidth(300);
+      baseImageView.setFitHeight(300);
+   
+      VBox imageBox6 = new VBox(20);
+      imageBox6.setAlignment(Pos.CENTER);
+      imageBox6.getChildren().addAll(baseImageView);
+      adventureRoot.setCenter(imageBox6);
+     
+      
+      HBox adventureHeaderBox = new HBox(adventureLabel);
+      adventureHeaderBox.setAlignment(Pos.CENTER);
+      adventureRoot.setTop(adventureHeaderBox);
+      
+      Scene adventureScene = new Scene(adventureRoot, 800, 600);
+      primaryStage.setScene(adventureScene);
+      primaryStage.setResizable(false);
+      primaryStage.show();
+   
+   
+   }
+  
+  
+   public static void main(String[] args) {
+      launch(args);
+   }
+}
